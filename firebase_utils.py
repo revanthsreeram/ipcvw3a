@@ -37,12 +37,35 @@ def initialize_firebase():
     try:
         # Check if running on Streamlit Cloud (look for secrets)
         if hasattr(st, "secrets") and "firebase" in st.secrets:
-            # Use the credentials from streamlit secrets
-            cred_dict = st.secrets["firebase"]
-            cred = credentials.Certificate(cred_dict)
+            # Create a temporary JSON file with the secret credentials
+            with tempfile.NamedTemporaryFile(suffix='.json', delete=False) as temp:
+                # Write the credentials to the temp file
+                cred_dict = dict(st.secrets["firebase"])
+                
+                # Make sure private_key is properly formatted
+                if "private_key" in cred_dict and isinstance(cred_dict["private_key"], str):
+                    # Ensure the private key has proper newline characters
+                    cred_dict["private_key"] = cred_dict["private_key"].replace("\\n", "\n")
+                
+                json.dump(cred_dict, temp)
+                temp_path = temp.name
+            
+            # Use the temporary file for Firebase initialization
+            cred = credentials.Certificate(temp_path)
             project_id = cred_dict.get("project_id", "fingerprint-matcher")
             storage_bucket = f"{project_id}.firebasestorage.app"
+            
             print(f"Using Firebase credentials from Streamlit secrets")
+            
+            # Initialize Firebase
+            app = firebase_admin.initialize_app(cred, {
+                'projectId': project_id,
+                'storageBucket': storage_bucket
+            })
+            
+            # Delete the temporary file
+            os.unlink(temp_path)
+            
         else:
             # Use local credentials file
             service_account_path = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS', 'serviceAccountKey.json')
@@ -54,13 +77,14 @@ def initialize_firebase():
             cred = credentials.Certificate(service_account_path)
             project_id = "fingerprint-matcher"
             storage_bucket = "fingerprint-matcher.firebasestorage.app"
+            
             print(f"Using Firebase credentials from local file: {service_account_path}")
-        
-        # Initialize Firebase
-        app = firebase_admin.initialize_app(cred, {
-            'projectId': project_id,
-            'storageBucket': storage_bucket
-        })
+            
+            # Initialize Firebase
+            app = firebase_admin.initialize_app(cred, {
+                'projectId': project_id,
+                'storageBucket': storage_bucket
+            })
         
         db = firestore.client(app=app, database_id="fingerprint-data")
         bucket = admin_storage.bucket(app=app)
@@ -75,8 +99,17 @@ def initialize_firebase():
             print("Using existing Firebase app")
         else:
             raise e
+    except Exception as e:
+        # Print detailed error for debugging
+        import traceback
+        print(f"Error initializing Firebase: {e}")
+        print(traceback.format_exc())
+        raise
     
     return db, bucket
+
+# Rest of your firebase_utils.py code remains the same
+# ...
 
 def get_db_and_bucket():
     """Get the Firestore database and Storage bucket clients, initializing if necessary"""
