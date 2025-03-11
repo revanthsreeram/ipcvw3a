@@ -109,7 +109,7 @@ left_co,cent_co,last_co = st.columns(3)
 with cent_co:
     st.image("IAFISt.png",width=210,)
 st.markdown("<h1 style='text-align: center; color: grey;'>Integrated Automated Fingerprint Identification System</h1>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center; color: grey;'>Federal Bureau of Investigation</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center; color: yellow;'>Federal Bureau of Investigation</h2>", unsafe_allow_html=True)
 st.subheader("Image Processing and Computer Vision Worksheet 3A Criminal Database")
 st.markdown("""
 Upload your CSV file containing fingerprint minutiae features to find a match in the criminal database.
