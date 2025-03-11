@@ -107,7 +107,7 @@ def display_match_info(match_data, similarity):
 # App title and description
 left_co,cent_co,last_co = st.columns(3)
 with cent_co:
-    st.image("National_Crime_Records_Bureau_Logo.png",width=210,)
+    st.image("NAFIS.jpg",width=210,)
 st.title("National Automated Fingerprint Identification System")
 st.subheader("National Crime Records Bureau")
 st.subheader("Image Processing and Computer Vision Worksheet 3A Criminal Database")
