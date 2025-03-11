@@ -11,7 +11,7 @@ from firebase_utils import initialize_firebase, match_minutiae_with_database
 # Set up page configuration
 st.set_page_config(
     page_title="NAFIS",
-    page_icon="NAFIS.jpg",
+    page_icon="NAFISt.png",
     layout="centered"
 )
 
@@ -107,7 +107,7 @@ def display_match_info(match_data, similarity):
 # App title and description
 left_co,cent_co,last_co = st.columns(3)
 with cent_co:
-    st.image("NAFIS.jpg",width=210,)
+    st.image("NAFISt.png",width=210,)
 st.title("National Automated Fingerprint Identification System")
 st.subheader("National Crime Records Bureau")
 st.subheader("Image Processing and Computer Vision Worksheet 3A Criminal Database")
