@@ -38,15 +38,15 @@ def initialize_firebase():
         # Check if running on Streamlit Cloud (look for secrets)
         if hasattr(st, "secrets") and "firebase" in st.secrets:
             # Create a temporary JSON file with the secret credentials
-            with tempfile.NamedTemporaryFile(suffix='.json', delete=False) as temp:
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as temp:
                 # Write the credentials to the temp file
                 cred_dict = dict(st.secrets["firebase"])
-                
+    
                 # Make sure private_key is properly formatted
                 if "private_key" in cred_dict and isinstance(cred_dict["private_key"], str):
                     # Ensure the private key has proper newline characters
                     cred_dict["private_key"] = cred_dict["private_key"].replace("\\n", "\n")
-                
+    
                 json.dump(cred_dict, temp)
                 temp_path = temp.name
             
