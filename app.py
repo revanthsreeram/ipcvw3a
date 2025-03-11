@@ -10,8 +10,8 @@ from firebase_utils import initialize_firebase, match_minutiae_with_database
 
 # Set up page configuration
 st.set_page_config(
-    page_title="NAFIS",
-    page_icon="NAFISt.png",
+    page_title="IAFIS",
+    page_icon="IAFISt.png",
     layout="centered"
 )
 
@@ -107,9 +107,9 @@ def display_match_info(match_data, similarity):
 # App title and description
 left_co,cent_co,last_co = st.columns(3)
 with cent_co:
-    st.image("NAFISt.png",width=210,)
-st.title("National Automated Fingerprint Identification System")
-st.subheader("National Crime Records Bureau")
+    st.image("IAFISt.png",width=210,)
+st.title("Integrated Automated Fingerprint Identification System")
+st.subheader("Federal Bureau of Investigation")
 st.subheader("Image Processing and Computer Vision Worksheet 3A Criminal Database")
 st.markdown("""
 Upload your CSV file containing fingerprint minutiae features to find a match in the criminal database.
