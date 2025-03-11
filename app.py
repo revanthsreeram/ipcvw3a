@@ -108,6 +108,7 @@ def display_match_info(match_data, similarity):
 left_co,cent_co,last_co = st.columns(3)
 with cent_co:
     st.image("IAFISt.png",width=210,)
+st.markdown("<h1 style='text-align: center; color: grey;'>Integrated Automated Fingerprint Identification System</h1>", unsafe_allow_html=True)
 st.title("Integrated Automated Fingerprint Identification System")
 st.subheader("Federal Bureau of Investigation")
 st.subheader("Image Processing and Computer Vision Worksheet 3A Criminal Database")
