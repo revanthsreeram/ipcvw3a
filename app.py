@@ -11,7 +11,7 @@ from firebase_utils import initialize_firebase, match_minutiae_with_database
 # Set up page configuration
 st.set_page_config(
     page_title="NAFIS",
-    page_icon="National_Crime_Records_Bureau_Logo.png",
+    page_icon="NAFIS.jpg",
     layout="centered"
 )
 
